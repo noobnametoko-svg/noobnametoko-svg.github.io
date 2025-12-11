@@ -124,33 +124,30 @@
         <a href="https://noobnametoko-svg.github.io/noobkaraagesite/addon/">← アドオン一覧に戻る</a>
     </div>
 
-    <!-- ✅ GitHub Actions 方式の安全なカウンター -->
+    <!-- ✅ Replit カウンター対応版 -->
     <script>
-        const counterKey = "train-addon";
+        const server = "https://668d2392-32e9-4485-bf49-6de6eb4db6ab-00-ot3lq1ghxvn2.kirk.replit.dev";
 
-        // ✅ counter.json を読み込んで表示
+        // ✅ ページ読み込み時に現在のカウントを取得
         async function loadCount() {
-            const res = await fetch("https://raw.githubusercontent.com/noobnametoko-svg/noobkaraagesite/main/addon/train/counter.json");
-            const data = await res.json();
-            document.getElementById("download-count").innerText = data[counterKey] + " 回";
+            try {
+                const res = await fetch(server + "/api/counter");
+                const num = await res.text();
+                document.getElementById("download-count").innerText = num + " 回";
+            } catch (e) {
+                document.getElementById("download-count").innerText = "取得失敗";
+            }
         }
 
-        // ✅ ダウンロード時に GitHub Actions に +1 を依頼
+        // ✅ ダウンロード時に +1
         async function countDownload() {
-            await fetch("https://api.github.com/repos/noobnametoko-svg/noobkaraagesite/dispatches", {
-                method: "POST",
-                headers: {
-                    "Accept": "application/vnd.github.everest-preview+json",
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer YOUR_TOKEN_HERE"
-                },
-                body: JSON.stringify({
-                    event_type: "increment-counter"
-                })
-            });
-
-            // ✅ 少し待ってから再読み込み
-            setTimeout(loadCount, 1500);
+            try {
+                const res = await fetch(server + "/api/hit");
+                const num = await res.text();
+                document.getElementById("download-count").innerText = num + " 回";
+            } catch (e) {
+                alert("カウント送信に失敗しました");
+            }
         }
 
         // ✅ ページ読み込み時に表示
