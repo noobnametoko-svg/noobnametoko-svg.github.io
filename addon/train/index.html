@@ -58,7 +58,7 @@
             margin-bottom: 20px;
         }
 
-        .download-button {
+        .download-button, .detail-button {
             background:#ff7b00;
             color:#111;
             border:none;
@@ -69,9 +69,10 @@
             font-weight:bold;
             transition:0.2s;
             display: inline-block;
+            margin: 0 5px;
         }
 
-        .download-button:hover {
+        .download-button:hover, .detail-button:hover {
             background:#ffaa33;
         }
 
@@ -108,9 +109,14 @@
             </div>
 
             <div style="text-align:center; margin-top: 10px;">
-                <!-- ✅ シンプルなダウンロードだけ -->
+                <!-- ✅ ダウンロードボタン -->
                 <a href="train-addon.mcaddon" download>
                     <button class="download-button">⬇ ダウンロード</button>
+                </a>
+
+                <!-- ✅ 詳細ボタン -->
+                <a href="https://noobnametoko-svg.github.io/noobkaraagesite/addon/train/1/">
+                    <button class="detail-button">📄 詳細</button>
                 </a>
             </div>
         </div>
