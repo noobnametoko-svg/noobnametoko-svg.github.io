@@ -5,8 +5,6 @@
     <title>鉄道アドオン | NOOBKARAAGE</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="icon" href="../../favicon.png">
-
     <style>
         body {
             margin: 0;
@@ -15,47 +13,6 @@
             color: #f5f5f5;
             text-align: center;
             padding: 40px 20px;
-        }
-
-        h1 {
-            font-size: 30px;
-            margin-bottom: 20px;
-        }
-
-        .addon-list {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .addon-card {
-            background: #111621;
-            border: 1px solid #394155;
-            border-radius: 16px;
-            padding: 20px;
-            margin: 25px 0;
-            text-align: left;
-        }
-
-        .addon-card img {
-            width: 100%;
-            max-width: 500px;
-            border-radius: 12px;
-            border: 2px solid #394155;
-            display: block;
-            margin: 0 auto 20px auto;
-        }
-
-        .addon-title {
-            font-size: 22px;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        .addon-desc {
-            font-size: 15px;
-            color: #ccc;
-            line-height: 1.7;
-            margin-bottom: 20px;
         }
 
         .download-button {
@@ -68,112 +25,21 @@
             cursor:pointer;
             font-weight:bold;
             transition:0.2s;
-            display: inline-block;
         }
 
         .download-button:hover {
             background:#ffaa33;
         }
-
-        .back {
-            margin-top: 40px;
-        }
-
-        .back a {
-            color:#66aaff;
-            text-decoration:none;
-            font-size:14px;
-        }
-
-        .back a:hover {
-            text-decoration:underline;
-        }
     </style>
 </head>
 <body>
 
-    <h1>🚆 鉄道アドオン一覧</h1>
+    <h1>🚆 鉄道アドオン</h1>
 
-    <div class="addon-list">
-
-        <div class="addon-card">
-            <div class="addon-title">東武50070系（純電気ブレーキ・プーン音 / MTC2対応）</div>
-
-            <img src="train.png" alt="東武50070系アドオン">
-
-            <div class="addon-desc">
-                本アドオンは、東武鉄道50070系を再現した鉄道アドオンです。<br>
-                実車の特徴である<strong>純電気ブレーキ方式</strong>を再現し、減速時には
-                「プーン」という電気ブレーキ音がなるように設計されています。(改造あり、自作発言なし)
-            </div>
-
-            <div style="text-align:center; margin-top: 10px;">
-                <button class="download-button" onclick="countDownload()">
-                    ⬇ ダウンロード
-                </button>
-
-                <span id="download-count" style="margin-left:10px; font-size:16px; color:#ccc;">
-                    読み込み中…
-                </span>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="back">
-        <a href="https://noobnametoko-svg.github.io/noobkaraagesite/addon/">← アドオン一覧に戻る</a>
-    </div>
-
-    <!-- ✅ Firebase カウンター完全版 -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-
-        // ✅ 唐揚げさんの本物の firebaseConfig
-        const firebaseConfig = {
-          apiKey: "AIzaSyBIrW_ktOOtAQd2Yw2KhMEBVygYTp-0wyo",
-          authDomain: "noobkaraage-counter.firebaseapp.com",
-          databaseURL: "https://noobkaraage-counter-default-rtdb.firebaseio.com",
-          projectId: "noobkaraage-counter",
-          storageBucket: "noobkaraage-counter.firebasestorage.app",
-          messagingSenderId: "785752562232",
-          appId: "1:785752562232:web:873d69939dc091206e24cd",
-          measurementId: "G-GZCWNTYM6Z"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
-        const key = "train-addon";
-
-        // ✅ カウント読み込み
-        async function loadCount() {
-            try {
-                const snapshot = await get(ref(db, key));
-                const num = snapshot.exists() ? snapshot.val() : 0;
-                document.getElementById("download-count").innerText = num + " 回";
-            } catch (e) {
-                document.getElementById("download-count").innerText = "取得失敗";
-            }
-        }
-
-        // ✅ ダウンロード時に +1 → その後ダウンロード開始
-        async function countDownload() {
-            try {
-                const snapshot = await get(ref(db, key));
-                const num = snapshot.exists() ? snapshot.val() : 0;
-                await set(ref(db, key), num + 1);
-                document.getElementById("download-count").innerText = (num + 1) + " 回";
-
-                // ✅ ダウンロード開始
-                window.location = "train-addon.mcaddon";
-
-            } catch (e) {
-                alert("カウント送信に失敗しました");
-            }
-        }
-
-        loadCount();
-    </script>
+    <!-- ✅ シンプルなダウンロードだけ -->
+    <a href="train-addon.mcaddon" download>
+        <button class="download-button">⬇ ダウンロード</button>
+    </a>
 
 </body>
 </html>
